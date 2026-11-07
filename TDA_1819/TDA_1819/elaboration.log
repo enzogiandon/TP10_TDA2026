@@ -1,0 +1,70 @@
+Active-HDL 17.0.292.10043 2026-09-27 23:04:38
+
+Elaboration top modules:
+Architecture                  USUARIO_ARCHITECTURE(usuario)
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+Entity             | Architecture                    | Library       | Info | Compiler Version           | Compilation Options
+-------------------------------------------------------------------------------------------------------------------------------
+usuario            | USUARIO_ARCHITECTURE            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+pc                 | PC_ARCHITECTURE                 | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+ensamblador        | ENSAMBLADOR_ARCHITECTURE        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+cpu                | CPU_ARCHITECTURE                | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+buses_admin        | BUSES_ADMIN_ARCHITECTURE        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+memoria            | MEMORIA_ARCHITECTURE            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+ui                 | UI_ARCHITECTURE                 | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+etapas             | ETAPAS_ARCHITECTURE             | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+pipeline_registros | pipeline_registros_architecture | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+atascos            | ATASCOS_ARCHITECTURE            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+cpu_admin          | cpu_admin_architecture          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+reloj              | reloj_architecture              | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+registros          | REGISTROS_ARCHITECTURE          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+states_machine     | STATES_MACHINE_ARCHITECTURE     | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+registros_fp       | REGISTROS_FP_ARCHITECTURE       | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+fetch              | fetch_architecture              | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+decode             | decode_architecture             | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+execute            | EXECUTE_ARCHITECTURE            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+memory_access      | MEMORY_ACCESS_ARCHITECTURE      | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+writeback          | WRITEBACK_ARCHITECTURE          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+execute_alu        | EXECUTE_ALU_ARCHITECTURE        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+execute_fpu        | EXECUTE_FPU_ARCHITECTURE        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+str_detector       | STR_DETECTOR_ARCHITECTURE       | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+raw_waw_detector   | RAW_WAW_DETECTOR_ARCHITECTURE   | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+-------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------
+VHDL Package                                         | Library       | Info | Compiler Version           | Compilation Options
+-------------------------------------------------------------------------------------------------------------------------------
+standard                                             | std           |      |                            | <unavailable>
+TEXTIO                                               | std           |      | 17.0.292.10043 (Windows64) |  -2019
+std_logic_1164                                       | ieee          |      | 17.0.292.10043 (Windows64) |  -2008
+tipos_ensamblador                                    | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+NUMERIC_STD                                          | ieee          |      | 17.0.292.10043 (Windows64) |  -2008
+tipos_cpu                                            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+repert_cpu                                           | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_ensamblador                                    | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_buses                                          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+fixed_float_types                                    | ieee_proposed |      | 17.0.292.10043 (Windows64) | <unavailable>
+MATH_REAL                                            | ieee          |      | 17.0.292.10043 (Windows64) | <unavailable>
+fixed_pkg                                            | ieee_proposed |      | 17.0.292.10043 (Windows64) | <unavailable>
+float_pkg                                            | ieee_proposed |      | 17.0.292.10043 (Windows64) | <unavailable>
+const_memoria                                        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+tipos_ascii                                          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_ascii                                          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_registros                                      | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+func_ensamblador                                     | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+tipos_memoria                                        | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_cpu                                            | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_flags                                          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+const_reloj                                          | TDA_1819      |      | 17.0.292.10043 (Windows64) | -O3
+-------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Library                                              | Comment
+--------------------------------------------------------------------------------------------------------------------------------------------
+ieee                                                 | Standard IEEE packages library
+ieee_proposed                                        | VHDL '93 compatible version of the proposed packages for the IEEE 1076-2008 standard
+std                                                  | Standard VHDL library
+TDA_1819                                             | None
+--------------------------------------------------------------------------------------------------------------------------------------------

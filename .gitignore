@@ -1,0 +1,10 @@
+# Archivos generados por GHDL y simulación
+*.o
+*.cf
+*.ghw
+usuario
+sim_tp10.ghw
+test.ghw
+
+# Enlace simbólico temporal si se crea fuera de src
+Assembler

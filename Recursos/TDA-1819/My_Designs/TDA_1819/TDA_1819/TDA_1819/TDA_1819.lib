@@ -1,0 +1,107 @@
+timestamp=1790561317701
+
+[~A]
+ModifyID=201
+Version=74
+
+[~MFT]
+0=0|0TDA_1819.mgf|7720|0
+
+[atascos]
+A/atascos_architecture=A/ATASCOS_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/4. Atascos/atascos.vhd|70|
+
+[buses_admin]
+A/buses_admin_architecture=A/BUSES_ADMIN_ARCHITECTURE *21|../src/Usuario/PC/3. Buses_Admin/buses_admin.vhd|104|
+
+[cpu]
+A/cpu_architecture=A/CPU_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/cpu.vhd|54|
+
+[cpu_admin]
+A/cpu_admin_architecture=*21|../src/Usuario/PC/2. CPU/5. CPU_Admin/cpu_admin.vhd|81|
+
+[decode]
+A/decode_architecture=*21|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|90|
+
+[ensamblador]
+A/ensamblador_architecture=A/ENSAMBLADOR_ARCHITECTURE *21|../src/Usuario/PC/1. Ensamblador/ensamblador.vhd|119|
+
+[etapas]
+A/etapas_architecture=A/ETAPAS_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/etapas.vhd|112|
+
+[execute]
+A/execute_architecture=A/EXECUTE_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/3. Execute/execute.vhd|86|
+
+[execute_alu]
+A/execute_alu_architecture=A/EXECUTE_ALU_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/3. Execute/1. ALU/execute_alu.vhd|91|
+
+[execute_fpu]
+A/execute_fpu_architecture=A/EXECUTE_FPU_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/3. Execute/2. FPU/execute_fpu.vhd|79|
+
+[fetch]
+A/fetch_architecture=*21|../src/Usuario/PC/2. CPU/2. Etapas/1. Fetch/fetch.vhd|62|
+
+[memoria]
+A/memoria_architecture=A/MEMORIA_ARCHITECTURE *21|../src/Usuario/PC/4. Memoria/memoria.vhd|94|
+
+[memory_access]
+A/memory_access_architecture=A/MEMORY_ACCESS_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/4. Memory Access/memory_access.vhd|77|
+
+[pc]
+A/pc_architecture=A/PC_ARCHITECTURE *21|../src/Usuario/PC/pc.vhd|37|
+
+[pipeline_registros]
+A/pipeline_registros_architecture=*21|../src/Usuario/PC/2. CPU/3. Pipeline_Registros/pipeline_registros.vhd|84|
+
+[raw_waw_detector]
+A/raw_waw_detector_architecture=A/RAW_WAW_DETECTOR_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/4. Atascos/2. Datos/raw_waw_detector.vhd|143|
+
+[registros]
+A/registros_architecture=A/REGISTROS_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/7. Registros/registros.vhd|116|
+
+[registros_fp]
+A/registros_fp_architecture=A/REGISTROS_FP_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/1. UI/2. Registros FP/registros_fp.vhd|41|
+
+[reloj]
+A/reloj_architecture=*21|../src/Usuario/PC/2. CPU/6. Reloj/reloj.vhd|56|
+
+[states_machine]
+A/states_machine_architecture=A/STATES_MACHINE_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/1. UI/1. Máquina de Estados/states_machine.vhd|74|
+
+[str_detector]
+A/str_detector_architecture=A/STR_DETECTOR_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/4. Atascos/1. Estructurales/str_detector.vhd|82|
+
+[ui]
+A/ui_architecture=A/UI_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/1. UI/ui.vhd|53|
+
+[usuario]
+A/usuario_architecture=A/USUARIO_ARCHITECTURE *21|../src/Usuario/usuario.vhd|48|
+
+[writeback]
+A/writeback_architecture=A/WRITEBACK_ARCHITECTURE *21|../src/Usuario/PC/2. CPU/2. Etapas/5. Writeback/writeback.vhd|77|
+
+[~U]
+atascos=11|0*0|
+buses_admin=11|0*378|
+cpu=11|0*799|
+cpu_admin=11|0*1177|
+decode=11|0*1460|
+ensamblador=11|0*1906|
+etapas=11|0*2274|
+execute=11|0*2995|
+execute_alu=11|0*3368|
+execute_fpu=11|0*3673|
+fetch=11|0*3955|
+memoria=11|0*4313|
+memory_access=11|0*4619|
+pc=11|0*4949|
+pipeline_registros=11|0*5181|
+raw_waw_detector=11|0*5520|
+registros=11|0*5876|
+registros_fp=11|0*6207|
+reloj=11|0*6421|
+states_machine=11|0*6619|
+str_detector=11|0*6935|
+ui=11|0*7198|
+usuario=11|0*7526|
+writeback=11|0*7720|
+                                                                                                                                              
