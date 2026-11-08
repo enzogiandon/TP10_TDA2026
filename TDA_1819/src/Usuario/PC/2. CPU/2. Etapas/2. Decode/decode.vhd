@@ -1607,36 +1607,76 @@ begin
 					end if;
 				end if;
 			WHEN BFPT =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BFPT, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
-				IDtoEX.address <= IFtoIDLocal.package1(15 downto 0);
-				--StallBrEX <= '1';
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
+				branchAddr := IFtoIDLocal.package1(15 downto 0);
+				-- Lectura del registro de flags de punto flotante (ID_FPFLAGS)
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0);
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				-- Evaluación del flag FLAG_F en Decode (salto si flag = '1')
+				if (StallRAW = '0') then
+					if (DataRegOutID(FLAG_F) = '1') then
+						-- Rama Tomada: Cargar IP y activar parada corta (StallBrID)
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						-- Rama No Tomada: Flujo continuo
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BFPF =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BFPF, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
-				IDtoEX.address <= IFtoIDLocal.package1(15 downto 0);
-				--StallBrEX <= '1'; 
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
+				branchAddr := IFtoIDLocal.package1(15 downto 0);
+				-- Lectura del registro de flags de punto flotante (ID_FPFLAGS)
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0);
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				-- Evaluación del flag FLAG_F en Decode (salto si flag = '0')
+				if (StallRAW = '0') then
+					if (DataRegOutID(FLAG_F) = '0') then
+						-- Rama Tomada: Cargar IP y activar parada corta (StallBrID)
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						-- Rama No Tomada: Flujo continuo
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN PUSHH =>
 				IDtoMA.mode <= std_logic_vector(to_unsigned(MEM_MEM, IDtoMA.mode'length));
