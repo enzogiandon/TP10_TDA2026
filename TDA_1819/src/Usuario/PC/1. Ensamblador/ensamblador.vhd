@@ -2410,13 +2410,8 @@ begin
 			for j in 1 to cant_labels loop
 				if (offsets(i).name(1 to offsets(i).namelength) = labels(j).name(1 to labels(j).namelength)) then
 					CompToSM.num_linea <= offsets(i).num_linea;
-					if (offsets(i).isJmp) then
-						CompToSM.num_linea_branch_taken_ID <= labels(j).num_linea;
-						CompToSM.num_linea_branch_taken_EX <= -1;
-					else
-						CompToSM.num_linea_branch_taken_ID <= -1;
-						CompToSM.num_linea_branch_taken_EX <= labels(j).num_linea;
-					end if;
+					CompToSM.num_linea_branch_taken_ID <= labels(j).num_linea;
+					CompToSM.num_linea_branch_taken_EX <= -1;
 					InstAddrBusComp <= std_logic_vector(to_unsigned(offsets(i).address, InstAddrBusComp'length));
 					InstDataBusOutComp <= std_logic_vector(to_unsigned(labels(j).address, InstDataBusOutComp'length));
 					InstSizeBusComp <= std_logic_vector(to_unsigned(2, InstSizeBusComp'length));
@@ -2442,7 +2437,7 @@ begin
 	CONSTANT cad_file_mode:		STRING := "READ_MODE";
 	CONSTANT file_mode:			FILE_OPEN_KIND := read_mode;
 	VARIABLE file_status:		FILE_OPEN_STATUS;
-	FILE programa: 				TEXT open file_mode is nombre;
+	FILE programa: 				TEXT;
 	VARIABLE linea: 			LINE;
 	VARIABLE cadena: 			STRING(1 to 100);
 	VARIABLE num_linea:			INTEGER := 1; 
