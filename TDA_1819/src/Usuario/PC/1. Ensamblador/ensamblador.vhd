@@ -1,70 +1,70 @@
 
 -- Entidad "ensamblador":
--- Descripción: Aquí se define el ensamblador incluido en la PC para traducir el programa
--- escrito por el usuario en el lenguaje Assembler a un código máquina que pueda ser
--- interpretado y ejecutado por el procesador. También se comprueban errores de sintaxis
--- en el código del programa y se almacena en la memoria principal el código máquina
--- para su posterior ejecución.
+-- DescripciÃ³n: AquÃ­ se define el ensamblador incluido en la PC para traducir el programa
+-- escrito por el usuario en el lenguaje Assembler a un cÃ³digo mÃ¡quina que pueda ser
+-- interpretado y ejecutado por el procesador. TambiÃ©n se comprueban errores de sintaxis
+-- en el cÃ³digo del programa y se almacena en la memoria principal el cÃ³digo mÃ¡quina
+-- para su posterior ejecuciÃ³n.
 -- Procesos:
--- Main: En primer lugar, recibe la señal del usuario para comenzar la tarea de ensamblar 
+-- Main: En primer lugar, recibe la seÃ±al del usuario para comenzar la tarea de ensamblar 
 -- el programa. Luego, procede con el ensamblaje hasta informar, en caso de corresponder, la  
--- correcta finalización del mismo tanto al usuario para que éste tome conocimiento
--- como al procesador para que empiece la ejecución propiamente dicha del programa.
+-- correcta finalizaciÃ³n del mismo tanto al usuario para que Ã©ste tome conocimiento
+-- como al procesador para que empiece la ejecuciÃ³n propiamente dicha del programa.
 -- Procedimientos y funciones:
--- checkDataBegin(): Comprueba que la primera línea de código escrito por el usuario
--- corresponda efectivamente a la definición del comienzo de la sección de datos 
+-- checkDataBegin(): Comprueba que la primera lÃ­nea de cÃ³digo escrito por el usuario
+-- corresponda efectivamente a la definiciÃ³n del comienzo de la secciÃ³n de datos 
 -- del programa (directiva ".data").
 -- isDataType(): Comprueba si cada una de las variables definidas en el programa posee
--- asociado un tipo de datos válido (ascii, entero de 8, 16 ó 32 bits, punto flotante, etc.).
--- saveDataIntDecValue(): Representa en código máquina cada uno de los valores enteros decimales
+-- asociado un tipo de datos vÃ¡lido (ascii, entero de 8, 16 Ã³ 32 bits, punto flotante, etc.).
+-- saveDataIntDecValue(): Representa en cÃ³digo mÃ¡quina cada uno de los valores enteros decimales
 -- que el usuario haya asignado a las distintas variables del programa y almacena el resultado
 -- en la memoria de datos de la PC.
--- saveDataIntHexValue(): Representa en código máquina cada uno de los valores hexadecimales 
+-- saveDataIntHexValue(): Representa en cÃ³digo mÃ¡quina cada uno de los valores hexadecimales 
 -- que el usuario haya asignado a las distintas variables del programa y almacena el resultado en 
 -- la memoria de datos de la PC.
--- saveDataIntBinValue(): Representa en código máquina cada uno de los valores binarios que el 
+-- saveDataIntBinValue(): Representa en cÃ³digo mÃ¡quina cada uno de los valores binarios que el 
 -- usuario haya asignado a las distintas variables del programa y almacena el resultado en la 
 -- memoria de datos de la PC.
--- saveDataFloatValue(): Representa en código máquina cada uno de los valores decimales	en punto
+-- saveDataFloatValue(): Representa en cÃ³digo mÃ¡quina cada uno de los valores decimales	en punto
 -- flotante que el usuario haya asignado a las distintas variables del programa y almacena el 
 -- resultado en la memoria de datos de la PC.
--- saveDataAsciiValue(): Representa en código máquina cada uno de los caracteres ASCII que el 
+-- saveDataAsciiValue(): Representa en cÃ³digo mÃ¡quina cada uno de los caracteres ASCII que el 
 -- usuario haya asignado a las distintas variables del programa y almacena el resultado en la 
 -- memoria de datos de la PC.
--- checkData(): Comprueba que ninguna de las líneas de la sección de datos del programa posea 
+-- checkData(): Comprueba que ninguna de las lÃ­neas de la secciÃ³n de datos del programa posea 
 -- errores de sintaxis.
--- checkCodeBegin(): Comprueba que la primera línea de código escrito por el usuario luego de
--- la sección de datos corresponda efectivamente a la definición del comienzo de la sección de 
+-- checkCodeBegin(): Comprueba que la primera lÃ­nea de cÃ³digo escrito por el usuario luego de
+-- la secciÃ³n de datos corresponda efectivamente a la definiciÃ³n del comienzo de la secciÃ³n de 
 -- instrucciones del programa (directiva ".code" o ".text").
--- checkInstTd(): Comprueba si la línea de código que se encuentra actualmente siendo ensamblada
--- corresponde a una instrucción de transferencia de datos. En caso afirmativo, representa en
--- código máquina tanto su respectivo código de operación como sus operandos (registros,
+-- checkInstTd(): Comprueba si la lÃ­nea de cÃ³digo que se encuentra actualmente siendo ensamblada
+-- corresponde a una instrucciÃ³n de transferencia de datos. En caso afirmativo, representa en
+-- cÃ³digo mÃ¡quina tanto su respectivo cÃ³digo de operaciÃ³n como sus operandos (registros,
 -- direcciones de memoria de datos) y lo almacena en la memoria de instrucciones de la PC.
--- checkInstAr(): Comprueba si la línea de código que se encuentra actualmente siendo ensamblada
--- corresponde a una instrucción aritmética. En caso afirmativo, representa en
--- código máquina tanto su respectivo código de operación como sus operandos (registros,
+-- checkInstAr(): Comprueba si la lÃ­nea de cÃ³digo que se encuentra actualmente siendo ensamblada
+-- corresponde a una instrucciÃ³n aritmÃ©tica. En caso afirmativo, representa en
+-- cÃ³digo mÃ¡quina tanto su respectivo cÃ³digo de operaciÃ³n como sus operandos (registros,
 -- valores inmediatos) y lo almacena en la memoria de instrucciones de la PC.
--- checkInstLD(): Comprueba si la línea de código que se encuentra actualmente siendo ensamblada
--- corresponde a una instrucción lógica o de desplazamiento de bits. En caso afirmativo, 
--- representa en código máquina tanto su respectivo código de operación como sus operandos 
+-- checkInstLD(): Comprueba si la lÃ­nea de cÃ³digo que se encuentra actualmente siendo ensamblada
+-- corresponde a una instrucciÃ³n lÃ³gica o de desplazamiento de bits. En caso afirmativo, 
+-- representa en cÃ³digo mÃ¡quina tanto su respectivo cÃ³digo de operaciÃ³n como sus operandos 
 -- (registros, valores inmediatos) y lo almacena en la memoria de instrucciones de la PC.
--- checkInstTc(): Comprueba si la línea de código que se encuentra actualmente siendo ensamblada
--- corresponde a una instrucción de transferencia de control. En caso afirmativo, representa 
--- en código máquina tanto su respectivo código de operación como sus operandos (registros, 
+-- checkInstTc(): Comprueba si la lÃ­nea de cÃ³digo que se encuentra actualmente siendo ensamblada
+-- corresponde a una instrucciÃ³n de transferencia de control. En caso afirmativo, representa 
+-- en cÃ³digo mÃ¡quina tanto su respectivo cÃ³digo de operaciÃ³n como sus operandos (registros, 
 -- direcciones de salto) y lo almacena en la memoria de instrucciones de la PC.
--- checkInstCt(): Comprueba si la línea de código que se encuentra actualmente siendo ensamblada
--- corresponde a una instrucción de control del procesador. En caso afirmativo, representa 
--- en código máquina su respectivo código de operación y lo almacena en la memoria de 
+-- checkInstCt(): Comprueba si la lÃ­nea de cÃ³digo que se encuentra actualmente siendo ensamblada
+-- corresponde a una instrucciÃ³n de control del procesador. En caso afirmativo, representa 
+-- en cÃ³digo mÃ¡quina su respectivo cÃ³digo de operaciÃ³n y lo almacena en la memoria de 
 -- instrucciones de la PC.
--- checkCode(): Comprueba que ninguna de las líneas de la sección de instrucciones del programa 
+-- checkCode(): Comprueba que ninguna de las lÃ­neas de la secciÃ³n de instrucciones del programa 
 -- posea errores de sintaxis.
 -- checkOffsets(): Comprueba que todas las direcciones de salto definidas en las instrucciones de
--- transferencia de datos correspondan efectivamente a etiquetas declaradas en la sección de
+-- transferencia de datos correspondan efectivamente a etiquetas declaradas en la secciÃ³n de
 -- instrucciones del programa.
--- assembleProgram(): Supervisa la correcta apertura del archivo que contiene el código del
+-- assembleProgram(): Supervisa la correcta apertura del archivo que contiene el cÃ³digo del
 -- programa en el lenguaje Assembler, verificando que dicho fichero se encuentre efectivamente
--- en la dirección especificada por el usuario. Si la tarea fue exitosa, procede con el
--- ensamblaje propiamente dicho del código.
+-- en la direcciÃ³n especificada por el usuario. Si la tarea fue exitosa, procede con el
+-- ensamblaje propiamente dicho del cÃ³digo.
 
 
 library TDA_1819;
@@ -137,7 +137,7 @@ begin
 	
 	BEGIN
 		if (cadena(i) /= HT) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la identación utilizada es incorrecta"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la identaciÃ³n utilizada es incorrecta"
 			severity FAILURE;
 		end if;
 		i := i + 1;
@@ -146,7 +146,7 @@ begin
 		end loop; 
 		for j in DATA'RANGE loop
 			if (cadena(i) /= DATA(j)) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': no se encuentra la directiva '.data'"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': no se encuentra la directiva '.data'"
 				severity FAILURE;
 			end if;
 			i := i + 1;
@@ -156,7 +156,7 @@ begin
 				if (cadena(i) = ';') then
 					exit;
 				else
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
 					severity FAILURE;
 				end if;
 			end if;
@@ -363,7 +363,7 @@ begin
 	 
 	BEGIN 
 		if (not isLetter(cadena(i))) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la variable no es válido"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la variable no es vÃ¡lido"
 			severity FAILURE;
 		end if;
 		variables(cant_variables).name(i) := cadena(i);
@@ -371,7 +371,7 @@ begin
 		i := i + 1;
 		while (cadena(i) /= ':') loop
 			if (not isValidChar(cadena(i))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			variables(cant_variables).name(i) := cadena(i);
@@ -399,7 +399,7 @@ begin
 			end if;
 		end loop;
 		if (i_aux = -1) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tipo de dato definido para la variable no es válido"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tipo de dato definido para la variable no es vÃ¡lido"
 			severity FAILURE;
 		end if;
 		i := i_aux;
@@ -408,12 +408,12 @@ begin
 		end loop; 
 		if ((variables(cant_variables).datatype = IS_INTEGER) OR (variables(cant_variables).datatype = IS_UINTEGER)) then
 			if (not isNumberOrMinus(cadena(i))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			if (isMinus(cadena(i))) then 
 				if (variables(cant_variables).datatype = IS_UINTEGER) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
 					severity FAILURE;
 				end if;
 				numsystem := IS_DEC;
@@ -430,7 +430,7 @@ begin
 					numsystem := IS_BIN;
 					i := i + 2;
 				elsif (cadena(i+1) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeración en el cual se encuentra representada la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeraciÃ³n en el cual se encuentra representada la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;	 
 				is_minus := false;
@@ -440,7 +440,7 @@ begin
 			end if;	
 			if (numsystem = IS_DEC) then
 				if (not isNumber(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				i_aux := 1;
@@ -457,7 +457,7 @@ begin
 				variables(cant_variables).size := size_aux;
 			elsif (numsystem = IS_HEX) then
 				if (not isHexadecimal(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				i_aux := 1;
@@ -471,14 +471,14 @@ begin
 				end loop; 
 				variables(cant_variables).strvaluelength := i_aux - 1;
 				if (variables(cant_variables).strvaluelength > size_aux*2) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
 					severity FAILURE;
 				end if;
 				saveDataIntHexValue(variables(cant_variables), size_aux);	
 				variables(cant_variables).size := size_aux;
 			else
 				if (not isBinary(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				i_aux := 1;
@@ -492,7 +492,7 @@ begin
 				end loop;
 				variables(cant_variables).strvaluelength := i_aux - 1;
 				if (variables(cant_variables).strvaluelength > size_aux*8) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
 					severity FAILURE;
 				end if;
 				saveDataIntBinValue(variables(cant_variables), size_aux);	
@@ -501,17 +501,17 @@ begin
 			while (cadena(i) = ',') loop
 				i := i + 1;
 				if (cadena(i) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
 					severity FAILURE;
 				end if;
 				i := i + 1;
 				if (not isNumberOrMinus(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				if (isMinus(cadena(i))) then 
 					if (variables(cant_variables).datatype = IS_UINTEGER) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
 						severity FAILURE;
 					end if;
 					numsystem := IS_DEC;
@@ -528,7 +528,7 @@ begin
 						numsystem := IS_BIN;
 						i := i + 2;
 					elsif (cadena(i+1) /= ' ') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeración en el cual se encuentra representada la variable no es válido"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeraciÃ³n en el cual se encuentra representada la variable no es vÃ¡lido"
 						severity FAILURE;
 					end if;	 
 					is_minus := false;
@@ -538,7 +538,7 @@ begin
 				end if;	
 				if (numsystem = IS_DEC) then
 					if (not isNumber(cadena(i))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 						severity FAILURE;
 					end if;
 					i_aux := 1;
@@ -555,7 +555,7 @@ begin
 					variables(cant_variables).size := variables(cant_variables).size + size_aux;
 				elsif (numsystem = IS_HEX) then
 					if (not isHexadecimal(cadena(i))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 						severity FAILURE;
 					end if;
 					i_aux := 1;
@@ -569,14 +569,14 @@ begin
 					end loop; 
 					variables(cant_variables).strvaluelength := i_aux - 1; 
 					if (variables(cant_variables).strvaluelength > size_aux*2) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
 						severity FAILURE;
 					end if;
 					saveDataIntHexValue(variables(cant_variables), size_aux);	
 					variables(cant_variables).size := variables(cant_variables).size + size_aux;
 				else
 					if (not isBinary(cadena(i))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 						severity FAILURE;
 					end if;
 					i_aux := 1;
@@ -590,7 +590,7 @@ begin
 					end loop;
 					variables(cant_variables).strvaluelength := i_aux - 1;
 					if (variables(cant_variables).strvaluelength > size_aux*8) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no puede ser representado con la cantidad de bits seleccionada"
 						severity FAILURE;
 					end if;
 					saveDataIntBinValue(variables(cant_variables), size_aux);	
@@ -599,12 +599,12 @@ begin
 			end loop;
 		elsif (variables(cant_variables).datatype = IS_FLOAT) then 
 			if (not isNumberOrMinus(cadena(i))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			if (isMinus(cadena(i))) then 
 				if (variables(cant_variables).datatype = IS_UINTEGER) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
 					severity FAILURE;
 				end if;
 				is_minus := true;
@@ -613,7 +613,7 @@ begin
 				is_minus := false;
 			end if;
 			if (not isNumber(cadena(i))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			i_aux := 1;
@@ -626,7 +626,7 @@ begin
 				i := i + 1;
 			end loop;		
 			if (cadena(i) /= '.') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			f_aux := i_aux;
@@ -644,17 +644,17 @@ begin
 			while (cadena(i) = ',') loop
 				i := i + 1;
 				if (cadena(i) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
 					severity FAILURE;
 				end if;
 				i := i + 1;
 				if (not isNumberOrMinus(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				if (isMinus(cadena(i))) then 
 					if (variables(cant_variables).datatype = IS_UINTEGER) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': una variable sin signo no puede ser negativa"
 						severity FAILURE;
 					end if;
 					is_minus := true;
@@ -663,7 +663,7 @@ begin
 					is_minus := false;
 				end if;
 				if (not isNumber(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				i_aux := 1;
@@ -676,7 +676,7 @@ begin
 					i := i + 1;
 				end loop;		
 				if (cadena(i) /= '.') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				f_aux := i_aux;
@@ -694,13 +694,13 @@ begin
 			end loop;
 		else  
 			if (cadena(i) /= '"') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			i := i + 1;
 			i_aux := isAscii(cadena(i));
 			if (i_aux = -1) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			saveDataAsciiValue(COD_CARACTERES(i_aux), variables(cant_variables).address, variables(cant_variables).size);
@@ -709,7 +709,7 @@ begin
 			while (cadena(i) /= '"') loop
 				i_aux := isAscii(cadena(i));
 				if (isAscii(cadena(i)) = -1) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				saveDataAsciiValue(COD_CARACTERES(i_aux), variables(cant_variables).address, variables(cant_variables).size);
@@ -724,18 +724,18 @@ begin
 			while (cadena(i) = ',') loop
 				i := i + 1;
 				if (cadena(i) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el vector se encuentra incorrectamente definido"
 					severity FAILURE;
 				end if;
 				i := i + 1;
 				if (cadena(i) /= '"') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				i := i + 1;
 				i_aux := isAscii(cadena(i));
 				if (i_aux = -1) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				saveDataAsciiValue(COD_CARACTERES(i_aux), variables(cant_variables).address, variables(cant_variables).size);
@@ -744,7 +744,7 @@ begin
 				while (cadena(i) /= '"') loop
 					i_aux := isAscii(cadena(i));
 					if (isAscii(cadena(i)) = -1) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es válido"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor de la variable no es vÃ¡lido"
 						severity FAILURE;
 					end if;
 					saveDataAsciiValue(COD_CARACTERES(i_aux), variables(cant_variables).address, variables(cant_variables).size);
@@ -763,7 +763,7 @@ begin
 				if (cadena(i) = ';') then
 					exit;
 				else
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
 					severity FAILURE;
 				end if;
 			end if;
@@ -783,7 +783,7 @@ begin
 	
 	BEGIN
 		if (cadena(i) /= HT) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la identación utilizada es incorrecta"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la identaciÃ³n utilizada es incorrecta"
 			severity FAILURE;
 		end if;
 		i := i + 1;
@@ -810,7 +810,7 @@ begin
 			end loop;
 		end if;
 		if (not match) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': no se encuentra la directiva '.code' o '.text'"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': no se encuentra la directiva '.code' o '.text'"
 			severity FAILURE;
 		end if;
 		i := i_aux;
@@ -819,7 +819,7 @@ begin
 				if (cadena(i) = ';') then
 					exit;
 				else
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
 					severity FAILURE;
 				end if;
 			end if;
@@ -862,20 +862,20 @@ begin
 			end loop;
 			if (((INSTTD_SIZE = 6) and (INSTTD_NAME(2) /= 'f')) or (INSTTD_NAME = "mrf")) then
 				if (cadena(indice) /= 'r') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg1 := 0;
 			else
 				if (cadena(indice) /= 'f') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg1 := CANT_REGISTROS;
 			end if;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -887,7 +887,7 @@ begin
 			indice := indice + 1;
 			if (cadena(indice) /= ',') then
 				if (cadena(indice-1) /= '1') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				case cadena(indice) is
@@ -904,17 +904,17 @@ begin
 						end loop;
 						indice := indice + 1;
 					when others =>
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 				end case;
 			end if;
 			if (cadena(indice) /= ',') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			indice := indice + 1;
 			if (cadena(indice) /= ' ') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;	
 			end if;
 			indice := indice + 1; 
@@ -938,10 +938,10 @@ begin
 					end if;
 					if (cadena(indice) /= '(') then
 						if (isNumber(cadena(indice))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor inmediato del segundo operando no puede ser ningún literal numérico mayor a 99"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor inmediato del segundo operando no puede ser ningÃºn literal numÃ©rico mayor a 99"
 							severity FAILURE; 
 						else
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;	
 						end if;
 					end if;
@@ -964,12 +964,12 @@ begin
 					end loop; 
 					--indice := indice + 1;
 					if (not match) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando no hace referencia al nombre de ninguna variable válida declarada"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando no hace referencia al nombre de ninguna variable vÃ¡lida declarada"
 						severity FAILURE;
 					end if;
 				end if;
 				if (cadena(indice) /= '(') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
@@ -978,12 +978,12 @@ begin
 					indice := indice + 2;
 				else
 					if (cadena(indice) /= 'r') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE; 
 					end if;
 					indice := indice + 1;
 					if (not isNumber(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					for j in DIGITS_DEC'range loop
@@ -995,7 +995,7 @@ begin
 					indice := indice + 1;
 					if (cadena(indice) /= ')') then
 						if (cadena(indice-1) /= '1') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						case cadena(indice) is
@@ -1008,13 +1008,13 @@ begin
 								end loop;
 								indice := indice + 1;
 							when others =>
-								report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+								report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 								severity FAILURE;
 						end case;
 					end if;
 				end if;
 				if (cadena(indice) /= ')') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
@@ -1061,20 +1061,20 @@ begin
 			else
 				if (INSTTD_NAME /= "mfr") then
 					if (cadena(indice) /= 'f') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					numReg2 := CANT_REGISTROS;
 				else
 					if (cadena(indice) /= 'r') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					numReg2 := 0;
 				end if;
 				indice := indice + 1;
 				if (not isNumber(cadena(indice))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				for j in DIGITS_DEC'range loop
@@ -1086,7 +1086,7 @@ begin
 				indice := indice + 1;
 				if (cadena(indice) /= ' ') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1103,7 +1103,7 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case; 
 				end if;				
@@ -1192,20 +1192,20 @@ begin
 			end loop;
 			if ((INSTAR_NAME(4) /= 'f') and (INSTAR_NAME(3) /= 'f')) then
 				if (cadena(indice) /= 'r') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg1 := 0;
 			else
 				if (cadena(indice) /= 'f') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg1 := CANT_REGISTROS;
 			end if;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -1217,7 +1217,7 @@ begin
 			indice := indice + 1;
 			if (cadena(indice) /= ',') then
 				if (cadena(indice-1) /= '1') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				case cadena(indice) is
@@ -1234,36 +1234,36 @@ begin
 						end loop;
 						indice := indice + 1;
 					when others =>
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 				end case;
 			end if;
 			if (cadena(indice) /= ',') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			indice := indice + 1;
 			if (cadena(indice) /= ' ') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;	
 			end if;
 			indice := indice + 1;  
 			if ((INSTAR_NAME(4) /= 'f') and (INSTAR_NAME(3) /= 'f')) then
 				if (cadena(indice) /= 'r') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg2 := 0;
 			else
 				if (cadena(indice) /= 'f') then	 
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				numReg2 := CANT_REGISTROS;
 			end if;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -1276,7 +1276,7 @@ begin
 			if (INSTAR_SIZE /= 4) then
 				if (cadena(indice) /= ',') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1293,37 +1293,37 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case;
 				end if;
 				if (cadena(indice) /= ',') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
 				if (cadena(indice) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;	
 				end if;
 				indice := indice + 1;
 				if (INSTAR_SIZE = 5) then 
 					if (INSTAR_NAME(4) /= 'f') then
 						if (cadena(indice) /= 'r') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						numReg3 := 0;
 					else
 						if (cadena(indice) /= 'f') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						numReg3 := CANT_REGISTROS;
 					end if;
 					indice := indice + 1;
 					if (not isNumber(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					for j in DIGITS_DEC'range loop
@@ -1335,7 +1335,7 @@ begin
 					indice := indice + 1;
 					if (cadena(indice) /= ' ') then
 						if (cadena(indice-1) /= '1') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						case cadena(indice) is
@@ -1352,18 +1352,18 @@ begin
 								end loop;
 								indice := indice + 1;
 							when others =>
-								report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+								report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 								severity FAILURE;
 						end case;
 					end if;
 					if (cadena(indice) /= ' ') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					indice := indice + 1; 
 				else  
 					if (not isNumberOrMinus(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					if (isMinus(cadena(indice))) then 
@@ -1381,7 +1381,7 @@ begin
 							numsystem := IS_BIN;
 							indice := indice + 2;
 						elsif (cadena(indice+1) /= ' ') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeración del tercer operando no es válido"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeraciÃ³n del tercer operando no es vÃ¡lido"
 							severity FAILURE;
 						end if;	 
 						is_minus := false;
@@ -1392,7 +1392,7 @@ begin
 					indInm3 := indice;
 					if (numsystem = IS_DEC) then
 						if (not isNumber(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1421,7 +1421,7 @@ begin
 						indice := indInm3 + 1;
 					elsif (numsystem = IS_HEX) then
 						if (not isHexadecimal(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1430,7 +1430,7 @@ begin
 						end loop;
 						indInm3 := indInm3 - 1;
 						if (indInm3-indice > 7) then 
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
 							severity FAILURE;
 						end if;
 						for j in indInm3 downto indice loop
@@ -1446,7 +1446,7 @@ begin
 						indice := indInm3 + 1;
 					else
 						if (not isBinary(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1455,7 +1455,7 @@ begin
 						end loop;
 						indInm3 := indInm3 - 1;
 						if (indInm3-indice > 31) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
 							severity FAILURE;
 						end if;
 						for j in indInm3 downto indice loop
@@ -1474,7 +1474,7 @@ begin
 			else
 				if (cadena(indice) /= ' ') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1491,7 +1491,7 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case;
 				end if;
@@ -1600,13 +1600,13 @@ begin
 				indice := indice + 1;
 			end loop;
 			if (cadena(indice) /= 'r') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			numReg1 := 0;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -1618,7 +1618,7 @@ begin
 			indice := indice + 1;
 			if (cadena(indice) /= ',') then
 				if (cadena(indice-1) /= '1') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				case cadena(indice) is
@@ -1631,28 +1631,28 @@ begin
 						end loop;
 						indice := indice + 1;
 					when others =>
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 				end case;
 			end if;
 			if (cadena(indice) /= ',') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			indice := indice + 1;
 			if (cadena(indice) /= ' ') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;	
 			end if;
 			indice := indice + 1;  
 			if (cadena(indice) /= 'r') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			numReg2 := 0;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -1665,7 +1665,7 @@ begin
 			if (INSTLD_SIZE /= 4) then
 				if (cadena(indice) /= ',') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1678,29 +1678,29 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case;
 				end if;
 				if (cadena(indice) /= ',') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
 				if (cadena(indice) /= ' ') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 					severity FAILURE;	
 				end if;
 				indice := indice + 1;
 				if (INSTLD_SIZE = 5) then 
 					if (cadena(indice) /= 'r') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					numReg3 := 0;
 					indice := indice + 1;
 					if (not isNumber(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					for j in DIGITS_DEC'range loop
@@ -1712,7 +1712,7 @@ begin
 					indice := indice + 1;
 					if (cadena(indice) /= ' ') then
 						if (cadena(indice-1) /= '1') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						case cadena(indice) is
@@ -1725,18 +1725,18 @@ begin
 								end loop;
 								indice := indice + 1;
 							when others =>
-								report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+								report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 								severity FAILURE;
 						end case;
 					end if;
 					if (cadena(indice) /= ' ') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					indice := indice + 1; 
 				else  
 					if (not isNumber(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					if (cadena(indice) = '0') then
@@ -1750,7 +1750,7 @@ begin
 							numsystem := IS_BIN;
 							indice := indice + 2;
 						elsif (cadena(indice+1) /= ' ') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeración del tercer operando no es válido"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el sistema de numeraciÃ³n del tercer operando no es vÃ¡lido"
 							severity FAILURE;
 						end if;	 
 					else
@@ -1759,7 +1759,7 @@ begin
 					indInm3 := indice;
 					if (numsystem = IS_DEC) then
 						if (not isNumber(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1780,7 +1780,7 @@ begin
 						indice := indInm3 + 1;
 					elsif (numsystem = IS_HEX) then
 						if (not isHexadecimal(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1789,7 +1789,7 @@ begin
 						end loop;
 						indInm3 := indInm3 - 1;
 						if (indInm3-indice > 7) then 
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
 							severity FAILURE;
 						end if;
 						for j in indInm3 downto indice loop
@@ -1805,7 +1805,7 @@ begin
 						indice := indInm3 + 1;
 					else
 						if (not isBinary(cadena(indInm3))) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el tercer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						indInm3 := indInm3 + 1;
@@ -1814,7 +1814,7 @@ begin
 						end loop;
 						indInm3 := indInm3 - 1;
 						if (indInm3-indice > 31) then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el valor del tercer operando no puede ser representado con la cantidad de bits seleccionada"
 							severity FAILURE;
 						end if;
 						for j in indInm3 downto indice loop
@@ -1833,7 +1833,7 @@ begin
 			else
 				if (cadena(indice) /= ' ') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1846,7 +1846,7 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case;
 				end if;
@@ -1947,12 +1947,12 @@ begin
 			end loop;
 			if (INSTTC_SIZE /= 4) then
 				if (cadena(indice) /= 'r') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
 				if (not isNumber(cadena(indice))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				for j in DIGITS_DEC'range loop
@@ -1964,7 +1964,7 @@ begin
 				indice := indice + 1;
 				if (cadena(indice) /= ',') then
 					if (cadena(indice-1) /= '1') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					case cadena(indice) is
@@ -1977,28 +1977,28 @@ begin
 							end loop;
 							indice := indice + 1;
 						when others =>
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 					end case;
 				end if;
 				if (cadena(indice) /= ',') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el primer operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				indice := indice + 1;
 				if (INSTTC_SIZE = 6) then
 					if (cadena(indice) /= ' ') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;	
 					end if;
 					indice := indice + 1;
 					if (cadena(indice) /= 'r') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					indice := indice + 1;
 					if (not isNumber(cadena(indice))) then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					for j in DIGITS_DEC'range loop
@@ -2010,7 +2010,7 @@ begin
 					indice := indice + 1;
 					if (cadena(indice) /= ',') then
 						if (cadena(indice-1) /= '1') then
-							report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+							report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 							severity FAILURE;
 						end if;
 						case cadena(indice) is
@@ -2023,12 +2023,12 @@ begin
 								end loop;
 								indice := indice + 1;
 							when others =>
-								report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+								report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 								severity FAILURE;
 						end case;
 					end if;
 					if (cadena(indice) /= ',') then
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el segundo operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 					end if;
 					indice := indice + 1;
@@ -2037,13 +2037,13 @@ begin
 				indice := indice - 1;
 			end if;
 			if (cadena(indice) /= ' ') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la dirección de salto se encuentra incorrectamente declarada"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la direcciÃ³n de salto se encuentra incorrectamente declarada"
 				severity FAILURE;	
 			end if;
 			indice := indice + 1;
 			cant_offsets := cant_offsets + 1;
 			if (not isLetter(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la dirección de salto no es válida"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la direcciÃ³n de salto no es vÃ¡lida"
 				severity FAILURE;
 			end if;
 			if (INSTTC_NAME = "jmp ") then
@@ -2147,12 +2147,12 @@ begin
 				indice := indice + 1;
 			end loop;
 			if (cadena(indice) /= 'r') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			indice := indice + 1;
 			if (not isNumber(cadena(indice))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 			for j in DIGITS_DEC'range loop
@@ -2164,7 +2164,7 @@ begin
 			indice := indice + 1;
 			if (cadena(indice) /= ' ') then
 				if (cadena(indice-1) /= '1') then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
 					severity FAILURE;
 				end if;
 				case cadena(indice) is
@@ -2177,12 +2177,12 @@ begin
 						end loop;
 						indice := indice + 1;
 					when others =>
-						report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
+						report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
 						severity FAILURE;
 				end case;
 			end if;
 			if (cadena(indice) /= ' ') then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el operando se encuentra incorrectamente declarado"
 				severity FAILURE;
 			end if;
 						
@@ -2285,14 +2285,14 @@ begin
 		if (cadena(i) /= HT) then
 			cant_labels := cant_labels + 1;
 			if (not isLetter(cadena(i))) then
-				report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la etiqueta no es válido"
+				report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la etiqueta no es vÃ¡lido"
 				severity FAILURE;
 			end if;
 			labels(cant_labels).name(i) := cadena(i);
 			i := i + 1;
 			while (cadena(i) /= ':') loop
 				if (not isValidChar(cadena(i))) then
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la etiqueta no es válido"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': el nombre de la etiqueta no es vÃ¡lido"
 					severity FAILURE;
 				end if;
 				labels(cant_labels).name(i) := cadena(i);
@@ -2377,7 +2377,7 @@ begin
 			end loop;
 		end if;
 		if (not check) then
-			report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la instrucción declarada no es válida"
+			report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': la instrucciÃ³n declarada no es vÃ¡lida"
 			severity FAILURE;
 		end if;
 		while (cadena(i) = HT) loop
@@ -2388,7 +2388,7 @@ begin
 				if (cadena(i) = ';') then
 					exit;
 				else
-					report "Error en la línea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
+					report "Error en la lÃ­nea " & integer'image(num_linea) & " del programa '" & trim(nombre) & "': los comentarios no se encuentran correctamente declarados"
 					severity FAILURE;
 				end if;
 			end if;
@@ -2429,7 +2429,7 @@ begin
 					WAIT FOR 1 ns;
 					exit;
 				elsif (j = cant_labels) then
-					report "Error en la línea " & integer'image(offsets(i).num_linea) & " del programa '" & trim(nombre) & "': la dirección de salto no hace referencia a ninguna etiqueta válida"
+					report "Error en la lÃ­nea " & integer'image(offsets(i).num_linea) & " del programa '" & trim(nombre) & "': la direcciÃ³n de salto no hace referencia a ninguna etiqueta vÃ¡lida"
 					severity FAILURE;
 				end if;
 			end loop;
@@ -2463,10 +2463,10 @@ begin
 				report "Error en la apertura del archivo '" & trim(nombre) & "': dicho fichero ya se encuentra abierto" 
 				severity FAILURE;
 			WHEN NAME_ERROR =>
-				report "Error en la apertura del archivo '" & trim(nombre) & "': no existe dicho fichero o no se encuentra el directorio en el cual el mismo debería estar ubicado"
+				report "Error en la apertura del archivo '" & trim(nombre) & "': no existe dicho fichero o no se encuentra el directorio en el cual el mismo deberÃ­a estar ubicado"
 				severity FAILURE;
 			WHEN MODE_ERROR =>
-				report "Error en la apertura del archivo '" & trim(nombre) & "': el modo elegido, '" & cad_file_mode & "', no es válido"
+				report "Error en la apertura del archivo '" & trim(nombre) & "': el modo elegido, '" & cad_file_mode & "', no es vÃ¡lido"
 				severity FAILURE;
 			WHEN OTHERS => 
 				for i in cadena'range loop
@@ -2525,12 +2525,12 @@ begin
 					readline(programa, linea);
 					cadena_length := linea.all'LENGTH;
 					if ((is_halt) and (not endfile(programa))) then
-						report "Error en la línea " & integer'image(num_linea-1) & " del programa '" & trim(nombre) & "': la última instrucción debe detener la ejecución del procesador ('halt')"
+						report "Error en la lÃ­nea " & integer'image(num_linea-1) & " del programa '" & trim(nombre) & "': la Ãºltima instrucciÃ³n debe detener la ejecuciÃ³n del procesador ('halt')"
 						severity FAILURE;
 					end if;
 				end loop;
 				if (not is_halt) then
-					report "Error en la línea " & integer'image(num_linea-1) & " del programa '" & trim(nombre) & "': la última instrucción debe detener la ejecución del procesador ('halt')"
+					report "Error en la lÃ­nea " & integer'image(num_linea-1) & " del programa '" & trim(nombre) & "': la Ãºltima instrucciÃ³n debe detener la ejecuciÃ³n del procesador ('halt')"
 					severity FAILURE;
 				end if;
 				checkOffsets(labels, cant_labels, offsets, cant_offsets, nombre);

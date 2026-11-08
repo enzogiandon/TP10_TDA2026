@@ -1,35 +1,35 @@
 
 -- Entidad "decode":
--- Descripción: Aquí se define la etapa de decodificación de la segmentación del 
--- procesador: obtiene del Registro de Instrucción (IR) el código de operación de la
--- instrucción a ejecutar, lo interpreta y en función del resultado procederá a
--- obtener la información sobre los operandos a partir de las señales recibidas de la
--- etapa de búsqueda. Luego, en caso de ser necesario, utilizará dicha información 
--- para acceder al banco de registros de la CPU y leer de él los operandos propiamente
--- dichos de la instrucción a fin de asignarlos a las etapas que los necesiten para
--- trabajar con ellos. Por ejemplo, si se trata de una instrucción aritmético/lógica
--- la etapa "execute" necesitará algunos de ellos para realizar	la respectiva
--- operación, mientras que la etapa "writeback" deberá conocer en qué registro se
--- guardará el resultado; en cambio, si es una instrucción de almacenamiento en 
--- memoria, la etapa "memory access" tendrá que saber qué dato debe ser guardado y a
--- partir de qué dirección de la memoria de datos necesitará hacerlo. Además, la etapa
--- "decode" ofrece información adicional obtenida directamente a partir del código de 
--- operación que las siguientes etapas del pipeline también necesitarán para ser 
--- llevadas a cabo: el tipo de operación a realizar, el tipo y tamaño de los operandos, 
+-- DescripciÃ³n: AquÃ­ se define la etapa de decodificaciÃ³n de la segmentaciÃ³n del 
+-- procesador: obtiene del Registro de InstrucciÃ³n (IR) el cÃ³digo de operaciÃ³n de la
+-- instrucciÃ³n a ejecutar, lo interpreta y en funciÃ³n del resultado procederÃ¡ a
+-- obtener la informaciÃ³n sobre los operandos a partir de las seÃ±ales recibidas de la
+-- etapa de bÃºsqueda. Luego, en caso de ser necesario, utilizarÃ¡ dicha informaciÃ³n 
+-- para acceder al banco de registros de la CPU y leer de Ã©l los operandos propiamente
+-- dichos de la instrucciÃ³n a fin de asignarlos a las etapas que los necesiten para
+-- trabajar con ellos. Por ejemplo, si se trata de una instrucciÃ³n aritmÃ©tico/lÃ³gica
+-- la etapa "execute" necesitarÃ¡ algunos de ellos para realizar	la respectiva
+-- operaciÃ³n, mientras que la etapa "writeback" deberÃ¡ conocer en quÃ© registro se
+-- guardarÃ¡ el resultado; en cambio, si es una instrucciÃ³n de almacenamiento en 
+-- memoria, la etapa "memory access" tendrÃ¡ que saber quÃ© dato debe ser guardado y a
+-- partir de quÃ© direcciÃ³n de la memoria de datos necesitarÃ¡ hacerlo. AdemÃ¡s, la etapa
+-- "decode" ofrece informaciÃ³n adicional obtenida directamente a partir del cÃ³digo de 
+-- operaciÃ³n que las siguientes etapas del pipeline tambiÃ©n necesitarÃ¡n para ser 
+-- llevadas a cabo: el tipo de operaciÃ³n a realizar, el tipo y tamaÃ±o de los operandos, 
 -- etc.
 -- Procesos:
--- Main: En primer lugar, recibe la señal del administrador de la CPU para comenzar la
--- etapa de decodificación de una nueva instrucción. Luego, en la primera mitad del ciclo de
--- reloj comprueba si existen actualmente atascos de algún tipo en el cauce, deteniendo
--- temporalmente la ejecución en caso afirmativo. También obtiene del registro IR el código
--- de operación de la operación a ejecutar. Finalmente, en la segunda mitad del ciclo 
--- decodifica dicho código, accede en caso de ser necesario al banco de registros para obtener
--- los operandos y configura y envía toda la información requerida para que el resto de las 
+-- Main: En primer lugar, recibe la seÃ±al del administrador de la CPU para comenzar la
+-- etapa de decodificaciÃ³n de una nueva instrucciÃ³n. Luego, en la primera mitad del ciclo de
+-- reloj comprueba si existen actualmente atascos de algÃºn tipo en el cauce, deteniendo
+-- temporalmente la ejecuciÃ³n en caso afirmativo. TambiÃ©n obtiene del registro IR el cÃ³digo
+-- de operaciÃ³n de la operaciÃ³n a ejecutar. Finalmente, en la segunda mitad del ciclo 
+-- decodifica dicho cÃ³digo, accede en caso de ser necesario al banco de registros para obtener
+-- los operandos y configura y envÃ­a toda la informaciÃ³n requerida para que el resto de las 
 -- etapas del pipeline puedan realizar su trabajo sin inconvenientes.
 -- Procedimientos y funciones:
--- Initialize(): Configura y carga toda la información inicial para las siguientes etapas
--- del pipeline, antes de que la misma sea modificada durante la decodificación de la 
--- instrucción: operaciones nulas, operandos y direcciones vacías, etc.
+-- Initialize(): Configura y carga toda la informaciÃ³n inicial para las siguientes etapas
+-- del pipeline, antes de que la misma sea modificada durante la decodificaciÃ³n de la 
+-- instrucciÃ³n: operaciones nulas, operandos y direcciones vacÃ­as, etc.
 
 
 library TDA_1819;
@@ -1640,7 +1640,7 @@ begin
 				end if;
 				StopInit <= '1';
 			WHEN OTHERS =>
-				report "Error: el código de operación de la instrucción no es válido"
+				report "Error: el cÃ³digo de operaciÃ³n de la instrucciÃ³n no es vÃ¡lido"
 				severity FAILURE;
 		END CASE;
 		IFtoIDAnt <= IFtoIDLocal;
