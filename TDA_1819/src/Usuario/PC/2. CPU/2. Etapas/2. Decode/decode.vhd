@@ -35,6 +35,7 @@
 library TDA_1819;
 use TDA_1819.const_buses.all;
 use TDA_1819.const_registros.all;
+use TDA_1819.const_flags.all; -- Requerido para FLAG_F al evaluar saltos FP (BFPT/BFPF) en Decode
 use TDA_1819.const_cpu.all;
 use TDA_1819.repert_cpu.all;
 use TDA_1819.tipos_cpu.all;
@@ -134,6 +135,10 @@ begin
 	VARIABLE rdAux:			INTEGER;
 	VARIABLE addrAux:		INTEGER; 
 	VARIABLE idAux:			INTEGER := 0;
+	-- Variables para resolución de saltos condicionales en Decode (TP10 Ejercicio 3)
+	VARIABLE branchOp1:		std_logic_vector(31 downto 0); -- Operando 1 leido del banco de registros en ID
+	VARIABLE branchOp2:		std_logic_vector(31 downto 0); -- Operando 2 leido del banco de registros en ID
+	VARIABLE branchAddr:	std_logic_vector(15 downto 0); -- Dirección destino de salto (16 bits)
 	
 	BEGIN 
 		if (First) then
