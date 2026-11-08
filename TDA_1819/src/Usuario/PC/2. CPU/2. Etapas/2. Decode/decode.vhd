@@ -35,6 +35,7 @@
 library TDA_1819;
 use TDA_1819.const_buses.all;
 use TDA_1819.const_registros.all;
+use TDA_1819.const_flags.all;
 use TDA_1819.const_cpu.all;
 use TDA_1819.repert_cpu.all;
 use TDA_1819.tipos_cpu.all;
@@ -134,6 +135,9 @@ begin
 	VARIABLE rdAux:			INTEGER;
 	VARIABLE addrAux:		INTEGER; 
 	VARIABLE idAux:			INTEGER := 0;
+	VARIABLE branchOp1:		std_logic_vector(31 downto 0);
+	VARIABLE branchOp2:		std_logic_vector(31 downto 0);
+	VARIABLE branchAddr:	std_logic_vector(15 downto 0);
 	
 	BEGIN 
 		if (First) then
@@ -1425,21 +1429,17 @@ begin
 				EnableRegIDIP <= '0';
 				WAIT FOR 1 ns;
 			WHEN BEQ =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BEQ, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				rfAux := to_integer(unsigned(IFtoIDLocal.package1(15 downto 8)));
-				IDtoEX.address(7 downto 0) <= IFtoIDLocal.package1(23 downto 16);
-				IDtoEX.address(15 downto 8) <= IFtoIDLocal.package2(7 downto 0);
-				--StallBrEX <= '1';
+				branchAddr(7 downto 0) := IFtoIDLocal.package1(23 downto 16);
+				branchAddr(15 downto 8) := IFtoIDLocal.package2(7 downto 0);
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0); 
+				branchOp1 := DataRegOutID(31 downto 0); 
 				if (StallRAW = '0') then
 					IdRegID <= std_logic_vector(to_unsigned(rfAux, IdRegID'length));
 					SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
@@ -1447,27 +1447,42 @@ begin
 					WAIT FOR 1 ns;
 					EnableRegID <= '0';
 					WAIT FOR 1 ns;
-					IDtoEX.op2 <= DataRegOutID(31 downto 0); 
+					branchOp2 := DataRegOutID(31 downto 0); 
 				end if;
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				if (StallRAW = '0') then
+					if (branchOp1 = branchOp2) then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BNE =>
-		  		IDtoEX.op <= std_logic_vector(to_unsigned(EX_BNE, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				rfAux := to_integer(unsigned(IFtoIDLocal.package1(15 downto 8)));
-				IDtoEX.address(7 downto 0) <= IFtoIDLocal.package1(23 downto 16);
-				IDtoEX.address(15 downto 8) <= IFtoIDLocal.package2(7 downto 0);
-				--StallBrEX <= '1';
+				branchAddr(7 downto 0) := IFtoIDLocal.package1(23 downto 16);
+				branchAddr(15 downto 8) := IFtoIDLocal.package2(7 downto 0);
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0);  
+				branchOp1 := DataRegOutID(31 downto 0);  
 				if (StallRAW = '0') then
 					IdRegID <= std_logic_vector(to_unsigned(rfAux, IdRegID'length));
 					SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
@@ -1475,76 +1490,153 @@ begin
 					WAIT FOR 1 ns;
 					EnableRegID <= '0';
 					WAIT FOR 1 ns;
-					IDtoEX.op2 <= DataRegOutID(31 downto 0);
+					branchOp2 := DataRegOutID(31 downto 0);
 				end if;
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				if (StallRAW = '0') then
+					if (branchOp1 /= branchOp2) then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BEQZ =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BEQZ, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
-				IDtoEX.address <= IFtoIDLocal.package1(23 downto 8);
-				--StallBrEX <= '1';
+				branchAddr := IFtoIDLocal.package1(23 downto 8);
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0); 
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				branchOp1 := DataRegOutID(31 downto 0); 
+				if (StallRAW = '0') then
+					if (to_integer(unsigned(branchOp1)) = 0) then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BNEZ =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BNEZ, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
-				IDtoEX.address <= IFtoIDLocal.package1(23 downto 8);
-				--StallBrEX <= '1';
+				branchAddr := IFtoIDLocal.package1(23 downto 8);
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0); 
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				branchOp1 := DataRegOutID(31 downto 0); 
+				if (StallRAW = '0') then
+					if (to_integer(unsigned(branchOp1)) /= 0) then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BFPT =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BFPT, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
-				IDtoEX.address <= IFtoIDLocal.package1(15 downto 0);
-				--StallBrEX <= '1';
+				branchAddr := IFtoIDLocal.package1(15 downto 0);
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0);
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				if (StallRAW = '0') then
+					if (DataRegOutID(FLAG_F) = '1') then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN BFPF =>
-				IDtoEX.op <= std_logic_vector(to_unsigned(EX_BFPF, IDtoEX.op'length));
-				IDtoEX.fp <= '0';
-				IDtoEX.sign <= '0';
-				IDtoEX.address <= IFtoIDLocal.package1(15 downto 0);
-				--StallBrEX <= '1'; 
+				branchAddr := IFtoIDLocal.package1(15 downto 0);
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
-				IDtoEX.op1 <= DataRegOutID(31 downto 0);
-				if (StallRAW = '0') and (Pipelining) then
-					StallBrEX <= '1';
+				if (StallRAW = '0') then
+					if (DataRegOutID(FLAG_F) = '0') then
+						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+						DataRegInID(15 downto 0) <= branchAddr;
+						if (Pipelining) then
+							StallBrID <= '1';
+						end if;
+						BranchIDtoSM.branch_taken <= '1';
+						BranchIDtoSM.enable <= '1';
+						EnableRegIDIP <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						EnableRegIDIP <= '0';
+						WAIT FOR 1 ns;
+					else
+						BranchIDtoSM.branch_taken <= '0';
+						BranchIDtoSM.enable <= '1';
+						WAIT FOR 1 ns;
+						BranchIDtoSM.enable <= '0';
+						WAIT FOR 1 ns;
+					end if;
 				end if;
 			WHEN PUSHH =>
 				IDtoMA.mode <= std_logic_vector(to_unsigned(MEM_MEM, IDtoMA.mode'length));
