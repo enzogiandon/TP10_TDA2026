@@ -1545,7 +1545,7 @@ begin
 				branchOp1 := DataRegOutID(31 downto 0); 
 				-- Evaluación de condición respecto a cero en Decode
 				if (StallRAW = '0') then
-					if (to_integer(unsigned(branchOp1)) = 0) then
+					if (unsigned(branchOp1) = 0) then 
 						-- Rama Tomada: Cargar IP y generar burbuja de 1 ciclo (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
@@ -1583,7 +1583,7 @@ begin
 				branchOp1 := DataRegOutID(31 downto 0); 
 				-- Evaluación de condición respecto a distinto de cero en Decode
 				if (StallRAW = '0') then
-					if (to_integer(unsigned(branchOp1)) /= 0) then
+					if (unsigned(branchOp1) /= 0) then
 						-- Rama Tomada: Cargar IP y generar burbuja de 1 ciclo (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
