@@ -35,7 +35,7 @@
 library TDA_1819;
 use TDA_1819.const_buses.all;
 use TDA_1819.const_registros.all;
-use TDA_1819.const_flags.all;
+use TDA_1819.const_flags.all; -- Requerido para FLAG_F al evaluar saltos FP (BFPT/BFPF) en Decode
 use TDA_1819.const_cpu.all;
 use TDA_1819.repert_cpu.all;
 use TDA_1819.tipos_cpu.all;
@@ -135,9 +135,10 @@ begin
 	VARIABLE rdAux:			INTEGER;
 	VARIABLE addrAux:		INTEGER; 
 	VARIABLE idAux:			INTEGER := 0;
-	VARIABLE branchOp1:		std_logic_vector(31 downto 0);
-	VARIABLE branchOp2:		std_logic_vector(31 downto 0);
-	VARIABLE branchAddr:	std_logic_vector(15 downto 0);
+	-- Variables para resolución de saltos condicionales en Decode (TP10 Ejercicio 3)
+	VARIABLE branchOp1:		std_logic_vector(31 downto 0); -- Operando 1 leido del banco de registros en ID
+	VARIABLE branchOp2:		std_logic_vector(31 downto 0); -- Operando 2 leido del banco de registros en ID
+	VARIABLE branchAddr:	std_logic_vector(15 downto 0); -- Dirección destino de salto (16 bits)
 	
 	BEGIN 
 		if (First) then
@@ -1429,10 +1430,13 @@ begin
 				EnableRegIDIP <= '0';
 				WAIT FOR 1 ns;
 			WHEN BEQ =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL (no se ejecuta operación en ALU).
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				rfAux := to_integer(unsigned(IFtoIDLocal.package1(15 downto 8)));
 				branchAddr(7 downto 0) := IFtoIDLocal.package1(23 downto 16);
 				branchAddr(15 downto 8) := IFtoIDLocal.package2(7 downto 0);
+				-- Lectura de operando 1 (rdAux) desde el banco de registros
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
@@ -1440,6 +1444,7 @@ begin
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
 				branchOp1 := DataRegOutID(31 downto 0); 
+				-- Protección RAW: Solo leer el segundo operando si no hay atasco de datos pendiente
 				if (StallRAW = '0') then
 					IdRegID <= std_logic_vector(to_unsigned(rfAux, IdRegID'length));
 					SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
@@ -1449,10 +1454,13 @@ begin
 					WAIT FOR 1 ns;
 					branchOp2 := DataRegOutID(31 downto 0); 
 				end if;
+				-- Evaluación combinacional de condición de salto en Decode
 				if (StallRAW = '0') then
 					if (branchOp1 = branchOp2) then
+						-- Rama Tomada: Cargar dirección de salto directamente en registro IP
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
+						-- Parada en ID: Descarta la instrucción incorrecta ya traída en IF (1 ciclo de penalización)
 						if (Pipelining) then
 							StallBrID <= '1';
 						end if;
@@ -1464,6 +1472,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo secuencial continuo (0 ciclos de penalización, IP inalterado)
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
@@ -1472,10 +1481,13 @@ begin
 					end if;
 				end if;
 			WHEN BNE =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				rfAux := to_integer(unsigned(IFtoIDLocal.package1(15 downto 8)));
 				branchAddr(7 downto 0) := IFtoIDLocal.package1(23 downto 16);
 				branchAddr(15 downto 8) := IFtoIDLocal.package2(7 downto 0);
+				-- Lectura de operando 1 (rdAux)
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
@@ -1483,6 +1495,7 @@ begin
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
 				branchOp1 := DataRegOutID(31 downto 0);  
+				-- Protección RAW: Lectura de operando 2 (rfAux)
 				if (StallRAW = '0') then
 					IdRegID <= std_logic_vector(to_unsigned(rfAux, IdRegID'length));
 					SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
@@ -1492,8 +1505,10 @@ begin
 					WAIT FOR 1 ns;
 					branchOp2 := DataRegOutID(31 downto 0);
 				end if;
+				-- Evaluación combinacional en Decode (desigualdad)
 				if (StallRAW = '0') then
 					if (branchOp1 /= branchOp2) then
+						-- Rama Tomada: Actualizar IP y activar parada corta (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
 						if (Pipelining) then
@@ -1507,6 +1522,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo continuo sin paradas
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
@@ -1515,8 +1531,11 @@ begin
 					end if;
 				end if;
 			WHEN BEQZ =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				branchAddr := IFtoIDLocal.package1(23 downto 8);
+				-- Lectura de único operando (rdAux)
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
@@ -1524,8 +1543,10 @@ begin
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
 				branchOp1 := DataRegOutID(31 downto 0); 
+				-- Evaluación de condición respecto a cero en Decode
 				if (StallRAW = '0') then
-					if (to_integer(unsigned(branchOp1)) = 0) then
+					if (unsigned(branchOp1) = 0) then 
+						-- Rama Tomada: Cargar IP y generar burbuja de 1 ciclo (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
 						if (Pipelining) then
@@ -1539,6 +1560,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo continuo sin paradas
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
@@ -1547,8 +1569,11 @@ begin
 					end if;
 				end if;
 			WHEN BNEZ =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
 				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
 				branchAddr := IFtoIDLocal.package1(23 downto 8);
+				-- Lectura de único operando (rdAux)
 				IdRegID <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(4, SizeRegID'length));
 				EnableRegID <= '1';
@@ -1556,8 +1581,10 @@ begin
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
 				branchOp1 := DataRegOutID(31 downto 0); 
+				-- Evaluación de condición respecto a distinto de cero en Decode
 				if (StallRAW = '0') then
-					if (to_integer(unsigned(branchOp1)) /= 0) then
+					if (unsigned(branchOp1) /= 0) then
+						-- Rama Tomada: Cargar IP y generar burbuja de 1 ciclo (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
 						if (Pipelining) then
@@ -1571,6 +1598,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo continuo sin paradas
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
@@ -1579,15 +1607,20 @@ begin
 					end if;
 				end if;
 			WHEN BFPT =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
 				branchAddr := IFtoIDLocal.package1(15 downto 0);
+				-- Lectura del registro de flags de punto flotante (ID_FPFLAGS)
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
+				-- Evaluación del flag FLAG_F en Decode (salto si flag = '1')
 				if (StallRAW = '0') then
 					if (DataRegOutID(FLAG_F) = '1') then
+						-- Rama Tomada: Cargar IP y activar parada corta (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
 						if (Pipelining) then
@@ -1601,6 +1634,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo continuo
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
@@ -1609,15 +1643,20 @@ begin
 					end if;
 				end if;
 			WHEN BFPF =>
+				-- [TP10 Ej. 3 - Decode Branching]
+				-- Desacople de EX: IDtoEX.op permanece en EX_NULL
 				branchAddr := IFtoIDLocal.package1(15 downto 0);
+				-- Lectura del registro de flags de punto flotante (ID_FPFLAGS)
 				IdRegID <= std_logic_vector(to_unsigned(ID_FPFLAGS, IdRegID'length));
 				SizeRegID <= std_logic_vector(to_unsigned(1, SizeRegID'length));
 				EnableRegID <= '1';
 				WAIT FOR 1 ns;
 				EnableRegID <= '0';
 				WAIT FOR 1 ns;
+				-- Evaluación del flag FLAG_F en Decode (salto si flag = '0')
 				if (StallRAW = '0') then
 					if (DataRegOutID(FLAG_F) = '0') then
+						-- Rama Tomada: Cargar IP y activar parada corta (StallBrID)
 						DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
 						DataRegInID(15 downto 0) <= branchAddr;
 						if (Pipelining) then
@@ -1631,6 +1670,7 @@ begin
 						EnableRegIDIP <= '0';
 						WAIT FOR 1 ns;
 					else
+						-- Rama No Tomada: Flujo continuo
 						BranchIDtoSM.branch_taken <= '0';
 						BranchIDtoSM.enable <= '1';
 						WAIT FOR 1 ns;
