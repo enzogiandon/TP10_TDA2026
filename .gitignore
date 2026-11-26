@@ -12,3 +12,22 @@ test.ghw
 /Assembler
 TDA_1819/Assembler
 Recursos/**/Assembler
+
+# Archivos generados por Active-HDL en el proyecto de trabajo
+TDA_1819.wsw
+TDA_1819/TDA_1819.wsp
+TDA_1819/TDA_1819/*.mgf
+TDA_1819/TDA_1819/*.lib
+TDA_1819/TDA_1819/elaboration.log
+TDA_1819/compile/TDA_1819.epr
+TDA_1819/compile/TDA_1819.erf
+TDA_1819/compile/contents.lib~TDA_1819
+TDA_1819/compile/sources.sth
+TDA_1819/compile/vcom.cmd
+TDA_1819/log/console.log
+TDA_1819/src/wave.asdb
+TDA_1819/src/wave.asdbw/
+TDA_1819/src/resultados_6_tests.log
+
+# Paquete local de entrega (reemplazado por Archivos_Modificados/ en el repo)
+TP10-Ej3-Archivos.zip
