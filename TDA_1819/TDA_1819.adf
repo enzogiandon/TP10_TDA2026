@@ -4,7 +4,7 @@ VCS=0
 version=4
 Current Config=compile
 [Configurations]
-compile=tda_1819
+compile=TDA_1819
 [Library]
 TDA_1819=.\TDA_1819\TDA_1819.lib
 [Settings]
@@ -141,6 +141,13 @@ Assembler/wb_str_waw7.asm=-1
 Assembler/wb_str_waw8.asm=-1
 Assembler/wb_str_waw9.asm=-1
 Assembler/wb_str_waw10.asm=-1
+Assembler/micro_negativo.asm=-1
+Assembler/micro_no_tomado.asm=-1
+Assembler/micro_sin_salto.asm=-1
+Assembler/micro_tomado.asm=-1
+Assembler/saltos_bucle.asm=-1
+Assembler/saltos_mixtos.asm=-1
+correr_6_tests.do=-1
 [Files.Data]
 .\src\Packages\const_reloj.vhd=VHDL Source Code
 .\src\Packages\tipos_cpu.vhd=VHDL Source Code
@@ -222,6 +229,13 @@ Assembler/wb_str_waw10.asm=-1
 .\src\Assembler\wb_str_waw8.asm=External File
 .\src\Assembler\wb_str_waw9.asm=External File
 .\src\Assembler\wb_str_waw10.asm=External File
+.\src\Assembler\micro_negativo.asm=External File
+.\src\Assembler\micro_no_tomado.asm=External File
+.\src\Assembler\micro_sin_salto.asm=External File
+.\src\Assembler\micro_tomado.asm=External File
+.\src\Assembler\saltos_bucle.asm=External File
+.\src\Assembler\saltos_mixtos.asm=External File
+.\src\correr_6_tests.do=Macro
 [Groups]
 Packages=1
 Usuario=1
