@@ -2,9 +2,13 @@
 *.o
 *.cf
 *.ghw
+*.vcd
+e~*
 usuario
 sim_tp10.ghw
 test.ghw
 
-# Enlace simbólico temporal si se crea fuera de src
-Assembler
+# Enlace simbólico temporal creado durante la simulación
+/Assembler
+TDA_1819/Assembler
+Recursos/**/Assembler
