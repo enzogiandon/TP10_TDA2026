@@ -79,25 +79,30 @@ Se adaptan las 6 instrucciones condicionales completas del repertorio (Tabla 38)
 ```text
 TP10/
 ├── README.md                  # Este documento
+├── Informe-TP10-v2.docx       # Informe del Trabajo Práctico 10
 ├── simular_tp10.sh            # Script automatizado de compilación y simulación con GHDL
+├── Archivos_Modificados/      # Entregable con los archivos modificados y tests sueltos
+│   ├── ensamblador.vhd        # Ensamblador adaptado para saltos en Decode
+│   ├── decode.vhd             # Etapa Decode con resolución de saltos condicionales
+│   └── Assembler/             # Programas .asm de prueba agregados (micro_* y saltos_*)
 ├── Recursos/                  # Archivos y fuentes originales entregados por la cátedra
 │   ├── Practica10-Taller2026.pdf
 │   ├── Practica10-Taller2026.md
 │   ├── document.pdf           # Libro/manual de referencia del TDA 1819
 │   └── TDA-1819/              # Proyecto original intacto (Active-HDL)
-└── TDA_1819/                  # Proyecto de trabajo con las modificaciones implementadas
+└── TDA_1819/                  # Proyecto completo con todas las modificaciones implementadas
     ├── compilation.order
     └── src/
         ├── Packages/          # Paquetes de constantes, tipos y funciones de la CPU
-        ├── Assembler/         # Programas de prueba en Assembler (.asm)
+        ├── Assembler/         # Programas de prueba en Assembler (.asm, incluye los nuevos)
         └── Usuario/           # Arquitectura estructural y etapas del procesador
             ├── usuario.vhd    # Banco de pruebas (Top-level Entity)
             └── PC/
-                ├── 1. Ensamblador/ensamblador.vhd
+                ├── 1. Ensamblador/ensamblador.vhd     <-- Modificado
                 └── 2. CPU/
                     ├── 2. Etapas/
                     │   ├── 1. Fetch/fetch.vhd
-                    │   ├── 2. Decode/decode.vhd       <-- Modificado (Punto 1)
+                    │   ├── 2. Decode/decode.vhd       <-- Modificado
                     │   └── 3. Execute/
                     │       ├── 1. ALU/execute_alu.vhd
                     │       └── execute.vhd
